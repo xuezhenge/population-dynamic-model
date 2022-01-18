@@ -9,7 +9,7 @@ code for "Predator-prey interactions in a warming world: the critical role of co
 
 - Step 2: 
 `
-python create_folders.py --case=0 --alter=aw00 --year=2080 --Ratio=200
+python create_folders_alter_aw.py --case=0 --alter=aw00 --year=2080 --Ratio=200
 `
 
 - Step 3: 
