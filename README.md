@@ -3,7 +3,7 @@ code for "Predator-prey interactions in a warming world: the critical role of co
 
 # How to run the code for testing
 - Step 1: Dowload three files:
-  - create_folders.py
+  - create_folders_alter_aw.py
   - model.py
   - 'outputs' folder
 
