@@ -11,7 +11,7 @@ parser.add_argument('--num_idxs_per_job', type=int,
 parser.add_argument('--case', type=int,
     default=1, help="f5")
 parser.add_argument("--alter", type=str, 
-    default="aw02", help="w2 or w4 or a-4 or a4 or aw-42 or aw-44 or aw42 or aw44")
+    default="aw00", help="w2 or w4 or a-4 or a4 or aw-42 or aw-44 or aw42 or aw44")
 
 args = parser.parse_args()
 num_idxs_per_job = args.num_idxs_per_job
@@ -36,7 +36,7 @@ def main(args):
     # header += "module load httpproxy" + "\n"
     header += "eval \"$(conda shell.bash hook)\"" + "\n"
     header += "conda activate" + "\n"
-    header += "cd /home/$USER/scratch/eco_model" + "\n"
+    header += "cd /home/$USER/scratch/eco_model/population-dynamic-model" + "\n"
 
     # generate jobs
     for i in range(num_jobs):
@@ -51,7 +51,7 @@ def main(args):
             paras = f"--start_idx={start_idx} --end_idx={end_idx} --num_cores={num_cores} --alter={alter} --case={j}"
             cmd1 = f"python3 -u create_folders_alter_aw.py --case={j} --alter={alter} --year=2080" + "\n"
             cmd2 = f"python3 -u {script_name} {paras}"
-            bash_fn = f"aw_change_80_{i}_{j}.sh"
+            bash_fn = f"aw{alter}_change_80_{i}_{j}.sh"
             bash_fn = os.path.join(jobs_dir, bash_fn)
             with open(bash_fn, "w") as f:
                 f.write(header)
