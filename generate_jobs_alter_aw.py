@@ -11,7 +11,7 @@ parser.add_argument('--num_idxs_per_job', type=int,
 parser.add_argument('--case', type=int,
     default=1, help="f5")
 parser.add_argument("--alter", type=str, 
-    default="w2", help="w2 or w4 or a-4 or a4 or aw-42 or aw-44 or aw42 or aw44")
+    default="aw02", help="w2 or w4 or a-4 or a4 or aw-42 or aw-44 or aw42 or aw44")
 
 args = parser.parse_args()
 num_idxs_per_job = args.num_idxs_per_job
@@ -29,14 +29,14 @@ def main(args):
     num_cores = 24
     num_idxs = 290
     num_jobs = num_idxs // num_idxs_per_job + 1
-    script_name = f"model_alter_aw_surface.py"
+    script_name = f"model2_cc.py"
 
     # starter for job scripts
     header = "#!/bin/bash" + "\n"
     # header += "module load httpproxy" + "\n"
     header += "eval \"$(conda shell.bash hook)\"" + "\n"
     header += "conda activate" + "\n"
-    header += "cd /home/$USER/scratch/PhD_thesis_chapter1" + "\n"
+    header += "cd /home/$USER/scratch/eco_model" + "\n"
 
     # generate jobs
     for i in range(num_jobs):
@@ -49,16 +49,14 @@ def main(args):
 
         for j in cases:
             paras = f"--start_idx={start_idx} --end_idx={end_idx} --num_cores={num_cores} --alter={alter} --case={j}"
-            cmd1 = f"python3 -u create_folders_alter_aw.py --case={j} --alter={alter} --year=2020" + "\n"
-            cmd2 = f"python3 -u create_folders_alter_aw.py --case={j} --alter={alter} --year=2080" + "\n"
-            cmd3 = f"python3 -u {script_name} {paras}"
-            bash_fn = f"aw_change_20_80_{i}_{j}.sh"
+            cmd1 = f"python3 -u create_folders_alter_aw.py --case={j} --alter={alter} --year=2080" + "\n"
+            cmd2 = f"python3 -u {script_name} {paras}"
+            bash_fn = f"aw_change_80_{i}_{j}.sh"
             bash_fn = os.path.join(jobs_dir, bash_fn)
             with open(bash_fn, "w") as f:
                 f.write(header)
                 f.write(cmd1)
                 f.write(cmd2)
-                f.write(cmd3)
 
 if __name__ == "__main__":
     main(args)
