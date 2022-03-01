@@ -8,6 +8,7 @@ import random
 import argparse
 from sympy import symbols, Eq, solve
 import sympy
+import math
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--case', type=int,
