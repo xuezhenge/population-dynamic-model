@@ -44,7 +44,6 @@ def get_outputs(file,data_dir):
     data_np_p = df.iloc[:,1:4]
     ind = list(set(df.index[df.iloc[:,3] > 0]))
     threshold_date = get_date(a,w)
-    import pdb;pdb.set_trace()
     if ind == []:
         N_predator = 0
         N_prey = 0
