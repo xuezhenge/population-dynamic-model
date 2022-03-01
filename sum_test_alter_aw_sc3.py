@@ -26,6 +26,7 @@ year = args.year
 alter = args.alter
 Ratio = args.Ratio
     
+
 def get_date(a,w):
     # the date when T < Tmin:
     print(a,w)
@@ -37,6 +38,7 @@ def get_date(a,w):
         t = symbols('t')
         Temp = Eq(-a*sympy.cos(2*sympy.pi*t/365) + w, 10)
         sol = solve(Temp)
+        date = int(sol[1])
         if date > 365:
             date = 365
     return date
