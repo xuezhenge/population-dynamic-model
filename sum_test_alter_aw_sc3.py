@@ -37,6 +37,8 @@ def get_date(a,w):
         Temp = Eq(-a*sympy.cos(2*sympy.pi*t/365) + w, 10)
         sol = solve(Temp)
         date = int(sol[1]) + 1
+        if date > 365:
+            date = 365
     return date
     
 def get_outputs(file,data_dir):
