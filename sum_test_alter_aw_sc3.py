@@ -32,6 +32,7 @@ def get_date(a,w):
     Temp = Eq(-a*sympy.cos(2*sympy.pi*t/365) + w, 10)
     sol = solve(Temp)
     date = math.ceil(sol[1])
+    import pdb;pdb.set_trace()
     return date
     
 def get_outputs(file,data_dir):
