@@ -23,6 +23,14 @@ year = args.year
 alter = args.alter
 Ratio = args.Ratio
     
+def get_date(a,w):
+    # the date when T < Tmin:
+    t = symbols('t')
+    Temp = Eq(-a*sympy.cos(2*sympy.pi*t/365) + w, 10)
+    sol = solve(Temp)
+    date = math.ceil(sol[1])
+    return date
+    
 def get_outputs(file,data_dir):
     loc = file.split(".csv")[0]
     a_name,a,w_name,w = loc.split("_")
@@ -32,7 +40,13 @@ def get_outputs(file,data_dir):
     df = read_csv(file_dir, header=None)
     data_np_p = df.iloc[:,1:4]
     ind = list(set(df.index[df.iloc[:,3] > 0]))
+    threshold_date = get_date(a,w)
+    import pdb;pdb.set_trace()
     if ind == []:
+        N_predator = 0
+        N_prey = 0
+    elif data_np_p[2][int(threshold_date-1)] < 1:
+        # if the Aden < 1 by the end of the growing season
         N_predator = 0
         N_prey = 0
     else: 
