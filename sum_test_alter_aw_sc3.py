@@ -28,11 +28,15 @@ Ratio = args.Ratio
     
 def get_date(a,w):
     # the date when T < Tmin:
-    t = symbols('t')
-    import pdb;pdb.set_trace()
-    Temp = Eq(-a*sympy.cos(2*sympy.pi*t/365) + w, 10)
-    sol = solve(Temp)
-    date = math.ceil(sol[1])
+    Tmin = w-a
+    Tmax = w+a
+    if Tmin > 10 or Tmax < 10:
+        date = 365
+    else:
+        t = symbols('t')
+        Temp = Eq(-a*sympy.cos(2*sympy.pi*t/365) + w, 10)
+        sol = solve(Temp)
+        date = int(sol[1]) + 1
     return date
     
 def get_outputs(file,data_dir):
