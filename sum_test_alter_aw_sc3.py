@@ -31,16 +31,12 @@ def get_date(a,w):
     print(a,w)
     Tmin = w-a
     Tmax = w+a
-    if Tmin > 10 or Tmax < 10:
+    if Tmin >= 10 or Tmax <= 10:
         date = 365
     else:
         t = symbols('t')
         Temp = Eq(-a*sympy.cos(2*sympy.pi*t/365) + w, 10)
         sol = solve(Temp)
-        if len(sol) == 1:
-            data = int(sol[0])
-        elif len(sol) == 2:
-            date = int(sol[1])
         if date > 365:
             date = 365
     return date
