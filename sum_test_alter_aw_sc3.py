@@ -51,12 +51,22 @@ def get_outputs(file,data_dir):
     file_dir = os.path.join(data_dir,file)
     df = read_csv(file_dir, header=None)
     data_np_p = df.iloc[:,1:4]
+    #get the value of AAP and ALP by the end of the growing season
+    AAP = data_np_p.iloc[:,1]
+    ALP = data_np_p.iloc[:,2]
+    AAP_end = AAP[364]
+    ALP_end = ALP[364]
+    if AAP_end == 0:
+        AAP_end = AAP[AAP[AAP != 0].index[-1]]
+        ALP_end = ALP[AAP[AAP != 0].index[-1]]
+    if AAP_end < 1000000 or ALP_end < 500:
+        print(f'a = {a}, w={w}')
     ind = list(set(df.index[df.iloc[:,3] > 0]))
     threshold_date = get_date(a,w)
     if ind == []:
         N_predator = 0
         N_prey = 0
-    elif data_np_p[2][int(threshold_date-1)] < 1:
+    elif data_np_p[2][int(threshold_date)] < 1:
         # if the Aden < 1 by the end of the growing season
         N_predator = 0
         N_prey = 0
