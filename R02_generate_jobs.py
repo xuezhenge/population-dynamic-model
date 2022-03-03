@@ -50,7 +50,7 @@ def main(args):
             paras = f"--start_idx={start_idx} --end_idx={end_idx} --num_cores={num_cores} --alter={alter} --case={j}"
             cmd1 = f"python3 -u R03_create_folders.py --case={j} --alter={alter}" + "\n"
             cmd2 = f"python3 -u {script_name} {paras}"
-            bash_fn = f"{alter}_change_80_{i}_{j}.sh"
+            bash_fn = f"{alter}_{i}_{j}.sh"
             bash_fn = os.path.join(jobs_dir, bash_fn)
             with open(bash_fn, "w") as f:
                 f.write(header)
