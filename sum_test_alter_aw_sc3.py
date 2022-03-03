@@ -56,17 +56,18 @@ def get_outputs(file,data_dir):
     ALP = data_np_p.iloc[:,2]
     AAP_end = AAP[364]
     ALP_end = ALP[364]
+    i = 0
     if AAP_end == 0 and min(AAP) > 0:
         AAP_end = AAP[AAP[AAP != 0].index[-1]]
         ALP_end = ALP[AAP[AAP != 0].index[-1]]
     if AAP_end < 1000000 or ALP_end < 500:
-        print(f'a = {a}, w={w}')
+        print(f'a = {a}, w={w}, i = {i+1}')
     ind = list(set(df.index[df.iloc[:,3] > 0]))
     threshold_date = get_date(a,w)
     if ind == []:
         N_predator = 0
         N_prey = 0
-    elif data_np_p[2][int(threshold_date)] < 1:
+    elif data_np_p[2][int(threshold_date)-1] < 1:
         # if the Aden < 1 by the end of the growing season
         N_predator = 0
         N_prey = 0
@@ -76,9 +77,6 @@ def get_outputs(file,data_dir):
     data_np_p_sum = data_np_p.sum(axis=0).tolist()
     row_AAP = [a] + [w] + data_np_p_sum + [N_prey,N_predator]
     return [row_AAP]
-
-
-
 
 rowname = ['a','w','Anp','Ap','L','N_prey','N_predator']
 
