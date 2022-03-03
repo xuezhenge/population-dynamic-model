@@ -29,7 +29,6 @@ Ratio = args.Ratio
 
 def get_date(a,w):
     # the date when T < Tmin:
-    print(a,w)
     Tmin = w-a
     Tmax = w+a
     if Tmin >= 10 or Tmax <= 10:
@@ -56,7 +55,7 @@ def get_outputs(file,data_dir):
     ALP = data_np_p.iloc[:,2]
     AAP_end = AAP[364]
     ALP_end = ALP[364]
-    if AAP_end == 0:
+    if AAP_end == 0 and min(AAP) > 0:
         AAP_end = AAP[AAP[AAP != 0].index[-1]]
         ALP_end = ALP[AAP[AAP != 0].index[-1]]
     if AAP_end < 1000000 or ALP_end < 500:
@@ -76,6 +75,7 @@ def get_outputs(file,data_dir):
     data_np_p_sum = data_np_p.sum(axis=0).tolist()
     row_AAP = [a] + [w] + data_np_p_sum + [N_prey,N_predator]
     return [row_AAP]
+
 
 
 rowname = ['a','w','Anp','Ap','L','N_prey','N_predator']
