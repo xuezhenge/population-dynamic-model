@@ -47,7 +47,6 @@ def get_outputs(file,data_dir):
     a_name,a,w_name,w = loc.split("_")
     a = float(a)
     w = float(w)
-    print(a,w)
     file_dir = os.path.join(data_dir,file)
     df = read_csv(file_dir, header=None)
     data_np_p = df.iloc[:,1:4]
@@ -56,7 +55,6 @@ def get_outputs(file,data_dir):
     ALP = data_np_p.iloc[:,2]
     AAP_end = AAP[364]
     ALP_end = ALP[364]
-    i = 0
     if AAP_end == 0 and min(AAP) > 0:
         AAP_end = AAP[AAP[AAP != 0].index[-1]]
         ALP_end = ALP[AAP[AAP != 0].index[-1]]
@@ -102,6 +100,7 @@ def main():
 
     rows_AAP = []
     files = os.listdir(data_dir)
+    i = 0
     for file in tqdm.tqdm(files):
         row_AAP = get_outputs(file,data_dir)
         rows_AAP += row_AAP
