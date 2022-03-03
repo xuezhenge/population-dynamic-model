@@ -44,6 +44,7 @@ def get_date(a,w):
     
 def get_outputs(file,data_dir):
     loc = file.split(".csv")[0]
+    print(a,w)
     a_name,a,w_name,w = loc.split("_")
     a = float(a)
     w = float(w)
@@ -75,6 +76,7 @@ def get_outputs(file,data_dir):
     data_np_p_sum = data_np_p.sum(axis=0).tolist()
     row_AAP = [a] + [w] + data_np_p_sum + [N_prey,N_predator]
     return [row_AAP]
+
 
 
 
