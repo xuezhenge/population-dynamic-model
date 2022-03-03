@@ -12,7 +12,7 @@ import math
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--case', type=int,
-    default='1', help="1,2,3 or 4")
+    default='0', help="1,2,3 or 4")
 parser.add_argument('--alter', type=str,
     default='aw00', help="w3 or a3 etc")
 parser.add_argument('--year', type=str,
