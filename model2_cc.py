@@ -537,5 +537,5 @@ if __name__ == '__main__':
 
     num_idxs = 1160
     for idx in np.arange(num_idxs) :
-        batch20_80(idx,export_fns_2080)
-        #processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, export_fns_2080) for idx in range(num_idxs))
+        #batch20_80(idx,export_fns_2080)
+        processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, export_fns_2080) for idx in range(num_idxs))
