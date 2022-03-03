@@ -59,7 +59,7 @@ def get_outputs(file,data_dir):
         AAP_end = AAP[AAP[AAP != 0].index[-1]]
         ALP_end = ALP[AAP[AAP != 0].index[-1]]
     if AAP_end < 1000000 or ALP_end < 500:
-        print(f'a = {a}, w={w}, i = {i+1}')
+        print(f'a = {a}, w={w}')
     ind = list(set(df.index[df.iloc[:,3] > 0]))
     threshold_date = get_date(a,w)
     if ind == []:
