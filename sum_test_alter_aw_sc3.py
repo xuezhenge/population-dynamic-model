@@ -44,10 +44,10 @@ def get_date(a,w):
     
 def get_outputs(file,data_dir):
     loc = file.split(".csv")[0]
-    print(a,w)
     a_name,a,w_name,w = loc.split("_")
     a = float(a)
     w = float(w)
+    print(a,w)
     file_dir = os.path.join(data_dir,file)
     df = read_csv(file_dir, header=None)
     data_np_p = df.iloc[:,1:4]
