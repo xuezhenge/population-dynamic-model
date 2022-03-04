@@ -44,7 +44,7 @@ def writer_csv(rows, filename, rowname = rowname, bool_continue=False):
 
 def main():
     print(alter,case)
-    data_dir = f'exports_case{case}_{alter}/eco_data'
+    data_dir = f'../outputs/exports_case{case}_{alter}/eco_data'
     files = os.listdir(data_dir)
     dump_dir = f'../outputs/AAPs_sum_{alter}'
     if not os.path.exists(dump_dir):
