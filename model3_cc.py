@@ -153,7 +153,8 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     # developmental rate
     dev_max_egg = 0.2142
     dev_max_instar1 = 0.3778
-    dev_max_instar2 = 0.4101
+    dev_max_instar2 = 0.4
+    1
     dev_max_instar3 = 0.2288
     dev_max_instar4 = 0.1229
     dev_max_pupa = 0.1648
