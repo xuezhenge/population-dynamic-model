@@ -457,7 +457,7 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
 
     elif Temp_min >= 10:
         Aborns_p = [];Lborns_p = []
-        outputs_p = Solve_euler_model(var0,A_add,L_add,t_start = 0, t_end = 365*10,dt=0.01,predation = True)
+        outputs_p = Solve_euler_model(var0,A_add,L_add,t_start = 0, t_end = 365*30,dt=0.01,predation = True)
         Adens_p = outputs_p[0]; Ldens_p = outputs_p[1]
         Aborns_p = outputs_p[2];Lborns_p = outputs_p[3]
     else:
