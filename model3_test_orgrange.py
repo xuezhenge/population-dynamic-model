@@ -471,25 +471,24 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
         Adens_p = [];Ldens_p = [];Aborns_p = []; Lborns_p = []
         def year_loop(A_add,L_add):
             if A_add == 0 and L_add == 0:
-                Adens_p = np.zeros([36500])
-                Ldens_p = np.zeros([36500])
-                Aborns_p = np.zeros([36500])
-                Lborns_p = np.zeros([36500])
+                Aden_p = np.zeros([36500])
+                Lden_p = np.zeros([36500])
+                Aborn_p = np.zeros([36500])
+                Lborn_p = np.zeros([36500])
                 A_end = 0
                 L_end = 0
                 A_surv = 0
                 L_surv = 0
-                print(A_add,L_add, A_end,L_end)
             else:
                 outputs_p = Solve_euler_model(var0,A_add,L_add,t_start = 0, t_end = 365,dt=0.01,predation = True)
                 Aden_p = outputs_p[0]; Lden_p = outputs_p[1]
                 Aborn_p = outputs_p[2];Lborn_p = outputs_p[3]
                 A_end = outputs_p[4];L_end = outputs_p[5]
-                Adens_p.extend(Aden_p)
-                Ldens_p.extend(Lden_p)
-                Aborns_p.extend(Aborn_p)
-                Lborns_p.extend(Lborn_p)
-                print(A_add,L_add, A_end,L_end)
+            Adens_p.extend(Aden_p)
+            Ldens_p.extend(Lden_p)
+            Aborns_p.extend(Aborn_p)
+            Lborns_p.extend(Lborn_p)
+            print(A_add,L_add, A_end,L_end)
             ov_surv = 1
             A_surv = A_end*ov_surv;L_surv = L_end*ov_surv
             return A_surv,L_surv
