@@ -455,7 +455,7 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     years = 30
     # import pdb;pdb.set_trace()
     if Temp_max <= TminL or Temp_min >= TmaxL:
-        ts = np.arange(0,365*10,0.01)
+        ts = np.arange(0,365*years,0.01)
         n_t=len(ts)
         Adens_p = np.zeros([n_t])
         Ldens_p = np.zeros([n_t])
