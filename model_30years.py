@@ -471,6 +471,10 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
         Adens_p = [];Ldens_p = [];Aborns_p = []; Lborns_p = []
         def year_loop(A_add,L_add):
             if A_add == 0 and L_add == 0:
+                Adens_p = np.zeros([36500])
+                Ldens_p = np.zeros([36500])
+                Aborns_p = np.zeros([36500])
+                Lborns_p = np.zeros([36500])
                 A_end = 0
                 L_end = 0
                 A_surv = 0
