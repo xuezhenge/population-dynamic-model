@@ -543,7 +543,7 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     return True
 
 def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
-    df = pd.read_csv('../outputs/parameter_changes/a_w_changes_2020_2080.csv')
+    df = pd.read_csv('../outputs/parameter_changes/a_w_changes_2020_2080_1160.csv')
     df = df[args.start_idx:args.end_idx]
     a = np.array(df.a)
     w = np.array(df.w)
