@@ -215,15 +215,6 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     # v_max = 0.3 # maximal mortality rate for aphid and ladybird
     theta = 0.5 # ratio of female ladybird to male ladybird
 
- 
-    # def indicator(t,Tmin,Tmax):
-    #     # Tmin = Tmin_fap or TminL
-    #     # Tmax = TmaxL or TmaxL
-    #     i = int(np.floor(t))
-    #     if (t >= 5) & (np.all(temp[i-5:i+1] >= Tmin)) & (np.all(temp[i-5:i+1] <= Tmax)):
-    #             return True
-    #     else: return False
-
     def thorneley_france(m,Tmin,Tmax,Topt,q1,q2,T):
         # Generic temperature-dependent function
         if (T>=Tmin) & (T<=Tmax):
@@ -332,10 +323,10 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
                 delta_egg_t = tddr_t*dev_max_egg
                 delta_pupa_t = tddr_t*dev_max_pupa
                 #Temperature-dependent developments rates at prey saturation
-                delta_inst1_prey_saturation_t = tddr_t*dev_max_pupa
-                delta_inst2_prey_saturation_t = tddr_t*dev_max_pupa
-                delta_inst3_prey_saturation_t = tddr_t*dev_max_pupa
-                delta_inst4_prey_saturation_t = tddr_t*dev_max_pupa
+                delta_inst1_prey_saturation_t = tddr_t*dev_max_instar1
+                delta_inst2_prey_saturation_t = tddr_t*dev_max_instar2
+                delta_inst3_prey_saturation_t = tddr_t*dev_max_instar3
+                delta_inst4_prey_saturation_t = tddr_t*dev_max_instar4
                 # Mortality rate of various stages
                 gamma_egg_t = mor_rate(Temp_t,a1_egg,a2_egg,b1_egg,b2_egg,TminL,TmaxL,ToptL_mor1,ToptL_mor2,v_max_egg,v_min_egg)
                 gamma_inst1_t = mor_rate(Temp_t,a1_inst1,a2_inst1,b1_inst1,b2_inst1,TminL,TmaxL,ToptL_mor1,ToptL_mor2,v_max_inst1,v_min_inst1)
@@ -425,22 +416,17 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
             Lborn[i] = f_L_t*Lf_t*dt
 
             # End the simulation
-            # TminL + 5 temperature threshold of entering overwintering period
-            if w-a < TminL + 5:
-                # if Temp_t >= 10 and num_change_A == 1 and num_change_L == 1:
-                #     if Aden[i] == 0:
-                #         Aden = np.zeros([n_t]); Aap = np.zeros([n_t]);A1 = np.zeros([n_t]); A2 = np.zeros([n_t]); A3 = np.zeros([n_t]); A4 = np.zeros([n_t])
-                #         A_end = 0; L_end = 0
-                #         break
-                if Temp_t < TminL and num_change_A == 1 and num_change_L == 1:
+            # end the simulation when one of them enter the overwintering period
+            Tov = max(TminA, TminL) # overwintering threshold
+            if w-a < Tov + 2:
+                if Temp_t < Tov and num_change_A == 1 and num_change_L == 1:
                     A_end = Aden[i];L_end = Lden[i]
                     break
                 else:
                     A_end = Aden[i];L_end = Lden[i]
                 if num_change_A == 1 and num_change_L == 0:
                     A_end = 0;L_end = 0
-
-            if w-a >= TminL + 5:
+            if w-a >= Tov + 2:
                 A_end = Aden[i];L_end = Lden[i]
                 
         outputs = [Aden, Lden, Aborn,Lborn,A_end,L_end]
@@ -454,7 +440,9 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     L_add = 50000
     years = 30
     # import pdb;pdb.set_trace()
-    if Temp_max <= TminL or Temp_min >= TmaxL:
+    # For the temperature profiles which are certainly unsuitable 
+    Tov = max(TminA, TminL) # overwintering threshold
+    if Temp_max <= Tov or Temp_min >= Tov:
         ts = np.arange(0,365*years,0.01)
         n_t=len(ts)
         Adens_p = np.zeros([n_t])
@@ -462,11 +450,14 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
         Aborns_p = np.zeros([n_t])
         Lborns_p = np.zeros([n_t])
 
-    elif Temp_min >= TminL + 5 and Temp_min < TmaxL:
+    # For the temperature profiles which won't have overwintering period
+    elif Temp_min >= Tov + 2 and Temp_max < Tov:
         Aborns_p = [];Lborns_p = []
         outputs_p = Solve_euler_model(var0,A_add,L_add,t_start = 0, t_end = 365*years,dt=0.01,predation = True)
         Adens_p = outputs_p[0]; Ldens_p = outputs_p[1]
         Aborns_p = outputs_p[2];Lborns_p = outputs_p[3]
+
+    # For the temperature profiles which have overwintering period
     else:
         Adens_p = [];Ldens_p = [];Aborns_p = []; Lborns_p = []
         def year_loop(A_add,L_add):
@@ -523,6 +514,76 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
         A_add, L_add = year_loop(A_add,L_add)
         A_add, L_add = year_loop(A_add,L_add)
         A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
+        # A_add, L_add = year_loop(A_add,L_add)
        
         Adens_p= np.array(Adens_p)
         Ldens_p= np.array(Ldens_p)
@@ -550,8 +611,8 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     a_20 = a[i]
     w_20 = w[i]
     print(a_20, w_20)
-    # a_20 = 22
-    # w_20 = -4
+    # a_20 = 6
+    # w_20 = 24
     if alter == 'aw00':
         a_change_ = 0
         w_change_ = 0
