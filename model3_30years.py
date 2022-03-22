@@ -442,7 +442,9 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     # import pdb;pdb.set_trace()
     # For the temperature profiles which are certainly unsuitable 
     Tov = max(TminA, TminL) # overwintering threshold
-    if Temp_max <= Tov or Temp_min >= Tov:
+    Tmin_min = min(TminA,TminL)
+    Tmax_max = max(TmaxA,TmaxL)
+    if Temp_max <= Tmin_min or Temp_min >= Tmax_max:
         ts = np.arange(0,365*years,0.01)
         n_t=len(ts)
         Adens_p = np.zeros([n_t])
@@ -451,11 +453,12 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
         Lborns_p = np.zeros([n_t])
 
     # For the temperature profiles which won't have overwintering period
-    elif Temp_min >= Tov + 2 and Temp_max < Tov:
+    elif Temp_min >= Tov + 2 and Temp_min < Tmax_max:
         Aborns_p = [];Lborns_p = []
         outputs_p = Solve_euler_model(var0,A_add,L_add,t_start = 0, t_end = 365*years,dt=0.01,predation = True)
         Adens_p = outputs_p[0]; Ldens_p = outputs_p[1]
         Aborns_p = outputs_p[2];Lborns_p = outputs_p[3]
+
 
     # For the temperature profiles which have overwintering period
     else:
