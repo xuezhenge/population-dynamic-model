@@ -28,7 +28,7 @@ def main(args):
     num_cores = 24
     num_idxs = 1160
     num_jobs = num_idxs // num_idxs_per_job + 1
-    script_name = f"model3_30years.py"
+    script_name = f"model3_50years.py"
 
     # starter for job scripts
     header = "#!/bin/bash" + "\n"
@@ -48,7 +48,7 @@ def main(args):
 
         for j in cases:
             paras = f"--start_idx={start_idx} --end_idx={end_idx} --num_cores={num_cores} --alter={alter} --case={j}"
-            cmd1 = f"python3 -u R03_create_folders_30years.py --case={j} --alter={alter}" + "\n"
+            cmd1 = f"python3 -u R03_create_folders_50years.py --case={j} --alter={alter}" + "\n"
             cmd2 = f"python3 -u {script_name} {paras}"
             bash_fn = f"{alter}_{i}_{j}.sh"
             bash_fn = os.path.join(jobs_dir, bash_fn)
