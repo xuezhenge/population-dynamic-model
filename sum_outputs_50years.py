@@ -119,9 +119,9 @@ def writer_csv(rows, filename, rowname = rowname, bool_continue=False):
 
 def main():
     print(alter,case)
-    data_dir = f'../outputs_cc/exports_case{case}_{alter}_50years/eco_data'
+    data_dir = f'../outputs/exports_case{case}_{alter}_50years/eco_data'
     files = os.listdir(data_dir)
-    dump_dir = f'../outputs_cc/AAPs_sum_{alter}_50years'
+    dump_dir = f'../outputs/AAPs_sum_{alter}_50years'
     if not os.path.exists(dump_dir):
         os.makedirs(dump_dir) 
     # creat output files
