@@ -172,7 +172,7 @@ def main():
         #row = [a] + [w] + [0] + [0] + [0] + [0] + [0] + [0]
         row = [a] + [w] + data_sum + data_born + [decomposed_coef1] + [decomposed_coef2] + [Lpeak] + [YorN]
         rows += [row]
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
 if __name__ == '__main__':
