@@ -54,7 +54,6 @@ def get_born(df):
     return data_born
 
 def get_average(df):
-    import pdb;pdb.set_trace()
     dataA = df.Aden_dt.to_numpy()
     dataL = df.Lden_dt.to_numpy()
     # reshape array into 36500 rows x 10 columns, and transpose the result
