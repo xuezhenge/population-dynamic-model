@@ -27,7 +27,6 @@ parser.add_argument('--alter', type=str,
 args = parser.parse_args()
 case = args.case
 alter = args.alter
-num_cores = 4
 
 def get_data(df,year):
     df = df.rename({'Unnamed: 0': 'dt'}, axis=1)
