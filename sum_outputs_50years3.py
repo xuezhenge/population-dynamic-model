@@ -40,7 +40,7 @@ def get_data(df,year):
 
 def get_sum(df):
     #import pdb;pdb.set_trace()
-    data = df.iloc[:,0:2]
+    data = df.iloc[:,1:3]
     # yearly mean + dt = 0.01*0.1
     data_sum = data.sum(axis=0)*0.01*0.1
     data_sum = data_sum.tolist()
@@ -48,14 +48,14 @@ def get_sum(df):
 
 def get_born(df):
     # calculate A born and L born
-    data = df.iloc[:,2:4]
+    data = df.iloc[:,3:5]
     # yearly mean
     data_born = data.sum(axis=0)*0.1
     data_born = data_born.tolist()
     return data_born
 
 def get_average(df):
-    import pdb;pdb.set_trace()
+    
     dataA = df.Aden_dt.to_numpy()
     dataL = df.Lden_dt.to_numpy()
     # reshape array into 36500 rows x 10 columns, and transpose the result
