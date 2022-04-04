@@ -55,7 +55,6 @@ def get_born(df):
     return data_born
 
 def get_average(df):
-    
     dataA = df.Aden_dt.to_numpy()
     dataL = df.Lden_dt.to_numpy()
     # reshape array into 36500 rows x 10 columns, and transpose the result
@@ -98,7 +97,7 @@ def get_peak(data):
     reshaped_data = data.reshape(20,36500)
     peak_val = np.max(reshaped_data,axis=1)
     year = np.arange(1,20).reshape((-1, 1))
-    Lpeak = peak_val[-1]
+    Lpeak = np.mean(peak_val)
     print(peak_val)
     return Lpeak
 
