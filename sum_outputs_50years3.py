@@ -27,6 +27,7 @@ parser.add_argument('--alter', type=str,
 args = parser.parse_args()
 case = args.case
 alter = args.alter
+num_cores = 4
 
 def get_data(df,year):
     df = df.rename({'Unnamed: 0': 'dt'}, axis=1)
@@ -54,6 +55,7 @@ def get_born(df):
     return data_born
 
 def get_average(df):
+    import pdb;pdb.set_trace()
     dataA = df.Aden_dt.to_numpy()
     dataL = df.Lden_dt.to_numpy()
     # reshape array into 36500 rows x 10 columns, and transpose the result
@@ -93,14 +95,14 @@ def get_peak(data):
     #import pdb;pdb.set_trace()
     data = data.Lden_dt.to_numpy()
     # reshape array into 36500 rows x 10 columns, and transpose the result
-    reshaped_data = data.reshape(10,36500)
+    reshaped_data = data.reshape(20,36500)
     peak_val = np.max(reshaped_data,axis=1)
-    year = np.arange(1,10).reshape((-1, 1))
+    year = np.arange(1,20).reshape((-1, 1))
     Lpeak = peak_val[-1]
     print(peak_val)
     return Lpeak
 
-rowname = ['a','w','Aden', 'Lden', 'A_ave', 'L_ave','decomposed_coef2', 'Lpeak','YorN']
+rowname = ['a','w','Aden', 'Lden', 'A_ave', 'L_ave','decomposed_coef2', 'Lpeak2','YorN']
 def writer_csv(rows, filename, rowname = rowname, bool_continue=False):
     with open(filename, "a+", newline="") as f:
         writer = csv.writer(f)
@@ -111,7 +113,7 @@ def main():
     print(alter,case)
     data_dir = f'../outputs/exports_case{case}_{alter}_50years/eco_data'
     files = os.listdir(data_dir)
-    dump_dir = f'../outputs_cc/AAPs_sum_{alter}_50years'
+    dump_dir = f'../outputs/AAPs_sum_{alter}_50years'
     if not os.path.exists(dump_dir):
         os.makedirs(dump_dir) 
     # creat output files
@@ -140,7 +142,7 @@ def main():
             print(a,w,len(df))
             # import pdb;pdb.set_trace()
             data1,data2 = get_data(df,year=50)
-            Lpeak = get_peak(data1)
+            Lpeak = get_peak(data2)
             #decomposed_coef1 = get_decomposed_coef(data1)
             decomposed_coef2 = get_decomposed_coef(data2)
             data_sum = get_sum(data1)
