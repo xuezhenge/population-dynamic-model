@@ -440,7 +440,7 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     Temp_min = w - a
     Temp_max = w + a
     A_add = 10000000
-    L_add = 50000
+    L_add = 0
     years = 50
     # import pdb;pdb.set_trace()
     # For the temperature profiles which are certainly unsuitable 
