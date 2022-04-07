@@ -601,7 +601,7 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     batch(a_80,w_80,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
 
 def folders(year):
-    fold_dir = f"../outputs/exports_case{case}_{alter}_50years"
+    fold_dir = f"../outputs/exports_case{case}_{alter}_50years_np"
     export_fns = []
     for folder_name in ["data", "plotAnp", "plotAp", "plotL", "plotAL"]:
         folder = os.path.join(
