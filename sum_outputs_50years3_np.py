@@ -116,6 +116,7 @@ def out_csv(i,idxs):
 
     rows = []
     files = os.listdir(data_dir)
+    files = files[800:1161]
     for file in tqdm.tqdm(files):
             if file == '.DS_Store':
                 continue
