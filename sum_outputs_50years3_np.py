@@ -102,6 +102,7 @@ def out_csv(i,idxs):
     idx = idxs[i]
     alter = idx[0]
     case = idx[1]
+    import pdb;pdb.set_trace()
     data_dir = f'../outputs/exports_case{case}_{alter}_50years_np/eco_data'
     files = os.listdir(data_dir)
     dump_dir = f'../outputs/AAPs_sum_{alter}_50years_np'
