@@ -134,7 +134,10 @@ def out_csv(i,idxs):
             decomposed_coef2 = get_decomposed_coef(data2)
             data_sum = get_sum(data1)
             data_ave = get_average(data1)
-            Ratio = decomposed_coef2/Lpeak
+            if Lpeak == 0:
+                Ratio = 'nan'
+            else:
+                Ratio = abs(decomposed_coef2/Lpeak)
             if decomposed_coef2 > 0:
                 Class = 'A1L1'
             elif decomposed_coef2 == 0:
@@ -151,7 +154,7 @@ def out_csv(i,idxs):
 
 cases = [0,1,2,3,4,5,6,7,8]
 alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
-alters = ['aw40']
+alters = ['aw00','aw40']
 
 idxs = []
 for alter in alters:
