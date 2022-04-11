@@ -19,8 +19,6 @@ import glob
 # https://towardsdatascience.com/time-series-decomposition-in-python-8acac385a5b2
 
 
-num_cores = 24
-
 def get_data(df,year):
     df = df.rename({'Unnamed: 0': 'dt'}, axis=1)
     start_ind = 36500*20
@@ -118,7 +116,6 @@ def out_csv(i,idxs):
 
     rows = []
     files = os.listdir(data_dir)
-
     for file in tqdm.tqdm(files):
             if file == '.DS_Store':
                 continue
@@ -128,25 +125,16 @@ def out_csv(i,idxs):
             w = float(w)
             file_dir = os.path.join(data_dir,file)
             df = read_csv(file_dir, header=0)
-            # import pdb;pdb.set_trace()
-            data1,data2 = get_data(df,year=50)
-            data_sum = get_sum(data1)
-            row = [a] + [w] + data_sum
-            rows += [row]
+            if len(df) == 1825000:
+                data1,data2 = get_data(df,year=50)
+                data_sum = get_sum(data1)
+                row = [a] + [w] + data_sum
+                rows += [row]
+            else:
+                row = [a] + [w] + ['nan'] + ['nan']
+                rows += [row
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
-cases = [0,1,2,3,4,5,6,7,8]
-alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
-alters = ['aw00']
-cases = [0]
-
-idxs = []
-for alter in alters:
-    for case in cases:
-        idx = [alter,case]
-        idxs += [idx]
-
-num_idxs = len(idxs)
-for i in np.arange(num_idxs) :
-    processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
+idxs = ['aw00',0]
+out_csv(0,idxs)
