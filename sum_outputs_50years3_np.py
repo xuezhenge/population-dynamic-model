@@ -18,16 +18,8 @@ import glob
 # https://www.machinelearningplus.com/time-series/time-series-analysis-python/
 # https://towardsdatascience.com/time-series-decomposition-in-python-8acac385a5b2
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--case', type=int,
-    default='0', help="1,2,3 or 4")
-parser.add_argument('--alter', type=str,
-    default='aw00', help="w3 or a3 etc")
 
-args = parser.parse_args()
-case = args.case
-alter = args.alter
-num_cores = 4
+num_cores = 24
 
 def get_data(df,year):
     df = df.rename({'Unnamed: 0': 'dt'}, axis=1)
@@ -98,17 +90,20 @@ def get_peak(data):
     peak_val = np.max(reshaped_data,axis=1)
     year = np.arange(1,20).reshape((-1, 1))
     Lpeak = peak_val[-1]
+    print(peak_val)
     return Lpeak
 
-rowname = ['a','w','Aden', 'Lden', 'A_ave', 'L_ave','decomposed_coef2', 'Lpeak2','YorN']
+rowname = ['a','w','Aden', 'Lden']
 def writer_csv(rows, filename, rowname = rowname, bool_continue=False):
     with open(filename, "a+", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(rowname)
         writer.writerows(rows)
 
-def main():
-    print(alter,case)
+def out_csv(i,idxs):
+    idx = idxs[i]
+    alter = idx[0]
+    case = idx[1]
     data_dir = f'../outputs/exports_case{case}_{alter}_50years_np/eco_data'
     files = os.listdir(data_dir)
     dump_dir = f'../outputs/AAPs_sum_{alter}_50years_np'
@@ -127,35 +122,31 @@ def main():
     for file in tqdm.tqdm(files):
             if file == '.DS_Store':
                 continue
-            # a = 11
-            # w = 15
-            # file = f'a_{a}_w_{w}.csv'
-            
             loc = file.split(".csv")[0]
             a_name,a,w_name,w = loc.split("_")
             a = float(a)
             w = float(w)
             file_dir = os.path.join(data_dir,file)
             df = read_csv(file_dir, header=0)
-            print(a,w,len(df))
             # import pdb;pdb.set_trace()
             data1,data2 = get_data(df,year=50)
-            Lpeak = get_peak(data2)
-            #decomposed_coef1 = get_decomposed_coef(data1)
-            decomposed_coef2 = get_decomposed_coef(data2)
             data_sum = get_sum(data1)
-            data_ave = get_average(data1)
-            #data_born = get_born(data1)
-            if decomposed_coef2 > 0:
-                YorN = 'Y'
-            else:
-                YorN = 'N'
-            #row = [a] + [w] + data_sum + data_born + [decomposed_coef1] + [decomposed_coef2] + [Lpeak] + [YorN]
-            row = [a] + [w] + data_sum + data_ave + [decomposed_coef2] + [Lpeak] + [YorN]
+            row = [a] + [w] + data_sum
             rows += [row]
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
-if __name__ == '__main__':
-    main()
-	
+cases = [0,1,2,3,4,5,6,7,8]
+alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
+alters = ['aw00']
+cases = [0]
+
+idxs = []
+for alter in alters:
+    for case in cases:
+        idx = [alter,case]
+        idxs += [idx]
+
+num_idxs = len(idxs)
+for i in np.arange(num_idxs) :
+    processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
