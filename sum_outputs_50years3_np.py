@@ -137,5 +137,5 @@ def out_csv(i,idxs):
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
-idxs = ['aw00',0]
+idxs = [['aw00',0]]
 out_csv(0,idxs)
