@@ -132,7 +132,7 @@ def out_csv(i,idxs):
                 rows += [row]
             else:
                 row = [a] + [w] + ['nan'] + ['nan']
-                rows += [row
+                rows += [row]
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
