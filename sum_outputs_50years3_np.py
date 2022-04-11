@@ -116,7 +116,7 @@ def out_csv(i,idxs):
 
     rows = []
     files = os.listdir(data_dir)
-    files = files[800:1161]
+    files = files[900:1161]
     for file in tqdm.tqdm(files):
             if file == '.DS_Store':
                 continue
@@ -132,7 +132,7 @@ def out_csv(i,idxs):
                 row = [a] + [w] + data_sum
                 rows += [row]
             else:
-                row = [a] + [w] + ['nan'] + ['nan']
+                row = [a] + [w] + [0] + [0]
                 print(row)
                 rows += [row]
     #import pdb;pdb.set_trace()
