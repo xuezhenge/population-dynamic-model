@@ -142,7 +142,7 @@ def out_csv(i,idxs):
                 Class = 'A1L1'
             elif decomposed_coef2 == 0 or Lpeak == 0:
                 Class = 'A0L0'
-            elif decomposed_coef2 < 0 
+            elif decomposed_coef2 < 0: 
                 if Ratio < 0.001:
                     Class = 'A1L1'
                 else:
@@ -153,9 +153,9 @@ def out_csv(i,idxs):
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
-cases = [0,1,2,3,4,5,6,7,8]
+cases = [3,6,7]
 alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
-alters = ['aw00','aw40','aw44']
+alters = ['aw-40']
 
 idxs = []
 for alter in alters:
