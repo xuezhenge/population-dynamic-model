@@ -140,12 +140,13 @@ def out_csv(i,idxs):
                 Ratio = abs(decomposed_coef2/Lpeak)
             if decomposed_coef2 > 0:
                 Class = 'A1L1'
-            elif decomposed_coef2 == 0:
+            elif decomposed_coef2 == 0 or Lpeak == 0:
                 Class = 'A0L0'
-            elif decomposed_coef2 < 0 and Ratio < 0.001:
-                Class = 'A1L1'
-            else:
-                Class = 'A1L0'
+            elif decomposed_coef2 < 0 
+                if Ratio < 0.001:
+                    Class = 'A1L1'
+                else:
+                    Class = 'A1L0'
 
             row = [a] + [w] + data_sum + data_ave + [decomposed_coef2] + [Lpeak] + [Ratio] + [Class]
             rows += [row]
