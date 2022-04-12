@@ -28,7 +28,7 @@ def main(args):
     num_cores = 24
     num_idxs = 1160
     num_jobs = num_idxs // num_idxs_per_job + 1
-    script_name = f"model3_50years_np_case0.py"
+    script_name = f"model3_30years_np_case0.py"
 
     # starter for job scripts
     header = "#!/bin/bash" + "\n"
