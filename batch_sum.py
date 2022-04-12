@@ -155,7 +155,7 @@ def out_csv(i,idxs):
 
 cases = [0,1,2,3,4,5,6,7,8]
 alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
-alters = ['aw00','aw04','aw40','aw44']
+alters = ['aw40','aw44']
 
 idxs = []
 for alter in alters:
