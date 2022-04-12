@@ -19,7 +19,7 @@ import glob
 # https://towardsdatascience.com/time-series-decomposition-in-python-8acac385a5b2
 
 
-num_cores = 24
+num_cores = 8
 
 def get_data(df,year):
     df = df.rename({'Unnamed: 0': 'dt'}, axis=1)
