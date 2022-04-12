@@ -102,9 +102,9 @@ def out_csv(i,idxs):
     idx = idxs[i]
     alter = idx[0]
     case = idx[1]
-    data_dir = f'../outputs/exports_case{case}_{alter}_50years_np/eco_data'
+    data_dir = f'../outputs/exports_case{case}_{alter}_30years_np/eco_data'
     files = os.listdir(data_dir)
-    dump_dir = f'../outputs/AAPs_sum_{alter}_50years_np'
+    dump_dir = f'../outputs/AAPs_sum_{alter}_30years_np'
     if not os.path.exists(dump_dir):
         os.makedirs(dump_dir) 
     # creat output files
@@ -126,7 +126,7 @@ def out_csv(i,idxs):
             file_dir = os.path.join(data_dir,file)
             df = read_csv(file_dir, header=0)
             if len(df) == 1825000:
-                data1,data2 = get_data(df,year=50)
+                data1,data2 = get_data(df,year=30)
                 data_sum = get_sum(data1)
                 row = [a] + [w] + data_sum
                 rows += [row]
