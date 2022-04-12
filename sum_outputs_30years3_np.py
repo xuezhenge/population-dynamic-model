@@ -71,6 +71,7 @@ def out_csv(i,idxs):
             data = get_data(df,year=30)
             data_sum = get_sum(data)
             row = [a] + [w] + data_sum
+            print(row)
             rows += [row]
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
