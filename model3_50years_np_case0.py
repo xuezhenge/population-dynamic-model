@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--case", type=int, 
     default="0", help="1 or 2 or 3 or 4 or 5 or 6 or 7 or 8")
 parser.add_argument('--num_cores', type=int,
-    default=24)
+    default=5)
 parser.add_argument('--K', type=int,
     default=50000000,help = "Carrying capacity")
 parser.add_argument('--alter', type=str,
@@ -417,21 +417,26 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
             # End the simulation
             # end the simulation when one of them enter the overwintering period
             Tov = max(TminA, TminL) # overwintering threshold
-
-            if w-a < Tov + 2:
-                if Temp_t < Tov and num_change_A == 1 and num_change_L == 1:
+            if w-a >= Tov + 2:
+                A_end = Aden[i];L_end = Lden[i]
+            else:
+                # import pdb;pdb.set_trace()
+                if Temp_t < Tov and num_change_A == 1:
                     A_end = Aden[i];L_end = Lden[i]
                     break
                 else:
                     A_end = Aden[i];L_end = Lden[i]
-                if num_change_A == 1 and num_change_L == 0:
-                    A_end = 0;L_end = 0
-            if w-a >= Tov + 2:
-                if i == 1095000:
-                    Aden[i] = Aden[i]*0.5;Aap[i] = Aap[i]*0.5; A1[i] = A1[i]*0.5; A2[i] = A2[i]*0.5; A3[i] = A3[i]*0.5; A4[i] = A4[i]*0.5
-                    Lden[i] = Lden[i]*0.5;Legg[i] = Legg[i]*0.5; L1[i] = L1[i]*0.5; L2[i] = L2[i]*0.5; L3[i] = L3[i]*0.5; L4[i] = L4[i]*0.5; Lpupa[i] = Lpupa[i]*0.5;Lf[i]=Lf[i]*0.5;Lm[i]=Lm[i]*0.5
-                A_end = Aden[i];L_end = Lden[i]
-                
+
+            # if w-a < Tov + 2:
+            #     if Temp_t < Tov and num_change_A == 1 and num_change_L == 1:
+            #         A_end = Aden[i];L_end = Lden[i]
+            #         break
+            #     else:
+            #         A_end = Aden[i];L_end = Lden[i]
+            #     if num_change_A == 1 and num_change_L == 0:
+            #         A_end = 0;L_end = 0
+            # if w-a >= Tov + 2:
+            #     A_end = Aden[i];L_end = Lden[i]
         outputs = [Aden, Lden, Aborn,Lborn,A_end,L_end]
         return outputs
 
@@ -441,12 +446,13 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     Temp_max = w + a
     A_add = 10000000
     L_add = 0
-    years = 50
+    years = 30
     # import pdb;pdb.set_trace()
     # For the temperature profiles which are certainly unsuitable 
     Tov = max(TminA, TminL) # overwintering threshold
     Tmin_min = min(TminA,TminL)
     Tmax_max = max(TmaxA,TmaxL)
+    #import pdb;pdb.set_trace()
     if Temp_max <= Tmin_min or Temp_min >= Tmax_max:
         ts = np.arange(0,365*years,0.01)
         n_t=len(ts)
@@ -457,6 +463,7 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
 
     # For the temperature profiles which won't have overwintering period
     elif Temp_min >= Tov + 2 and Temp_min < Tmax_max:
+    #else:
         Aborns_p = [];Lborns_p = []
         outputs_p = Solve_euler_model(var0,A_add,L_add,t_start = 0, t_end = 365*years,dt=0.01,predation = True)
         Adens_p = outputs_p[0]; Ldens_p = outputs_p[1]
@@ -520,27 +527,6 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
         A_add, L_add = year_loop(A_add,L_add)
         A_add, L_add = year_loop(A_add,L_add)
         A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add,ov_surv=0.5)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-        A_add, L_add = year_loop(A_add,L_add)
-       
         Adens_p= np.array(Adens_p)
         Ldens_p= np.array(Ldens_p)
         Aborns_p = np.array(Aborns_p)
@@ -560,14 +546,14 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     return True
 
 def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
-    df = pd.read_csv('../outputs/parameter_changes/a_w_changes_2020_2080_1160.csv')
+    df = pd.read_csv('../../outputs/parameter_changes/a_w_changes_2020_2080_1160.csv')
     df = df[args.start_idx:args.end_idx]
     a = np.array(df.a)
     w = np.array(df.w)
     a_20 = a[i]
     w_20 = w[i]
-    # a_20 = 10
-    # w_20 = 17
+    a_20 = 10.05
+    w_20 = 20.05
     print(a_20,w_20)
     if alter == 'aw00':
         a_change_ = 0
@@ -601,7 +587,7 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     batch(a_80,w_80,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
 
 def folders(year):
-    fold_dir = f"../outputs/exports_case{case}_{alter}_50years_np"
+    fold_dir = f"../../outputs/exports_case{case}_{alter}_50years_np"
     export_fns = []
     for folder_name in ["data", "plotAnp", "plotAp", "plotL", "plotAL"]:
         folder = os.path.join(
@@ -660,5 +646,6 @@ if __name__ == '__main__':
 
     num_idxs = 1160
     for idx in np.arange(num_idxs) :
-        #batch20_80(idx,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
-        processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, TminA,TmaxA,TminL,TmaxL,export_fns_2080) for idx in range(num_idxs))
+        batch20_80(idx,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
+        import pdb;pdb.set_trace()
+        #processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, TminA,TmaxA,TminL,TmaxL,export_fns_2080) for idx in range(num_idxs))
