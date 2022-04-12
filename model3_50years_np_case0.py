@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--case", type=int, 
     default="0", help="1 or 2 or 3 or 4 or 5 or 6 or 7 or 8")
 parser.add_argument('--num_cores', type=int,
-    default=5)
+    default=24)
 parser.add_argument('--K', type=int,
     default=50000000,help = "Carrying capacity")
 parser.add_argument('--alter', type=str,
@@ -31,7 +31,7 @@ parser.add_argument('--scenario', type=str,
 parser.add_argument('--start_idx', type=int,
     default=0)
 parser.add_argument('--end_idx', type=int,
-    default=400)
+    default=50)
 
 # parser.add_argument("--species", type=str, 
 #     default="aphid", help="aphid or ladybird")
