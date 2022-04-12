@@ -552,8 +552,6 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     w = np.array(df.w)
     a_20 = a[i]
     w_20 = w[i]
-    a_20 = 10.05
-    w_20 = 20.05
     print(a_20,w_20)
     if alter == 'aw00':
         a_change_ = 0
@@ -646,6 +644,6 @@ if __name__ == '__main__':
 
     num_idxs = 1160
     for idx in np.arange(num_idxs) :
-        batch20_80(idx,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
-        import pdb;pdb.set_trace()
-        #processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, TminA,TmaxA,TminL,TmaxL,export_fns_2080) for idx in range(num_idxs))
+        #batch20_80(idx,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
+        #import pdb;pdb.set_trace()
+        processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, TminA,TmaxA,TminL,TmaxL,export_fns_2080) for idx in range(num_idxs))
