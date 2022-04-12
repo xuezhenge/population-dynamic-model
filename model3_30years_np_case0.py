@@ -31,7 +31,7 @@ parser.add_argument('--scenario', type=str,
 parser.add_argument('--start_idx', type=int,
     default=0)
 parser.add_argument('--end_idx', type=int,
-    default=50)
+    default=72)
 
 # parser.add_argument("--species", type=str, 
 #     default="aphid", help="aphid or ladybird")
