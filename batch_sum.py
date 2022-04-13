@@ -167,6 +167,6 @@ for alter in alters:
         idxs += [idx]
 
 num_idxs = len(idxs)
-import pdb;pdb.set_trace()
+#import pdb;pdb.set_trace()
 for i in np.arange(num_idxs) :
     processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
