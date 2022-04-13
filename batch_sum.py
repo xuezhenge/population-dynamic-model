@@ -90,7 +90,7 @@ def get_peak(data):
     peak_val = np.max(reshaped_data,axis=1)
     year = np.arange(1,20).reshape((-1, 1))
     Lpeak = peak_val[-1]
-    print(peak_val)
+    # print(peak_val)
     return Lpeak
 
 rowname = ['a','w','Aden', 'Lden', 'A_ave', 'L_ave','decomposed_coef2', 'Lpeak2','Ratio','Class']
