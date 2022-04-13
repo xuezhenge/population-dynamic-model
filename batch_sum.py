@@ -120,14 +120,17 @@ def out_csv(i,idxs):
     files = os.listdir(data_dir)
 
     for file in tqdm.tqdm(files):
-            if file == '.DS_Store':
-                continue
-            loc = file.split(".csv")[0]
-            a_name,a,w_name,w = loc.split("_")
-            a = float(a)
-            w = float(w)
-            file_dir = os.path.join(data_dir,file)
-            df = read_csv(file_dir, header=0)
+        if file == '.DS_Store':
+            continue
+        loc = file.split(".csv")[0]
+        a_name,a,w_name,w = loc.split("_")
+        a = float(a)
+        w = float(w)
+        file_dir = os.path.join(data_dir,file)
+        df = read_csv(file_dir, header=0)
+        if len(df) < 36500*50:
+            row = [a] + [w] + ['Aden'] + ['Lden'] + ['A_ave'] + ['L_ave'] + ['decomposed_coef2'] + ['Lpeak2'] + ['Ratio'] + ['Class']
+        else:
             # import pdb;pdb.set_trace()
             data1,data2 = get_data(df,year=50)
             Lpeak = get_peak(data2)
@@ -149,13 +152,13 @@ def out_csv(i,idxs):
                     Class = 'A1L0'
 
             row = [a] + [w] + data_sum + data_ave + [decomposed_coef2] + [Lpeak] + [Ratio] + [Class]
-            rows += [row]
+        rows += [row]
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
 cases = [0,1,2,3,4,5,6,7,8]
 alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
-alters = ['aw40','aw44']
+alters = ['aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
 
 idxs = []
 for alter in alters:
