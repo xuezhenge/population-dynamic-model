@@ -12,7 +12,10 @@ for alter in alters:
         files = os.listdir(data_dir)
         no_files = len(files)
         print(f'{alter} -- case{case}: {no_files} files')
+        i = 0
         for file in files:
+            i = i + 1
+            print(i)
             file_dir = os.path.join(data_dir,file)
             data = pd.read_csv(file_dir)
             data_len = len(data)
