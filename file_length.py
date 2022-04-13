@@ -13,7 +13,6 @@ for alter in alters:
         no_files = len(files)
         print(f'{alter} -- case{case}: {no_files} files')
         for file in files:
-            import pdb;pdb.set_trace()
             file_dir = os.path.join(data_dir,file)
             data = pd.read_csv(file_dir)
             data_len = len(data)
