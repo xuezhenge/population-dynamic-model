@@ -19,7 +19,7 @@ import glob
 # https://towardsdatascience.com/time-series-decomposition-in-python-8acac385a5b2
 
 
-num_cores = 8
+num_cores = 24
 
 def get_data(df,year):
     df = df.rename({'Unnamed: 0': 'dt'}, axis=1)
@@ -131,7 +131,7 @@ def out_csv(i,idxs):
         if len(df) < 36500*50:
             row = [a] + [w] + ['Aden'] + ['Lden'] + ['A_ave'] + ['L_ave'] + ['decomposed_coef2'] + ['Lpeak2'] + ['Ratio'] + ['Class']
         else:
-            # import pdb;pdb.set_trace()
+            
             data1,data2 = get_data(df,year=50)
             Lpeak = get_peak(data2)
             decomposed_coef2 = get_decomposed_coef(data2)
@@ -167,5 +167,6 @@ for alter in alters:
         idxs += [idx]
 
 num_idxs = len(idxs)
+import pdb;pdb.set_trace()
 for i in np.arange(num_idxs) :
     processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
