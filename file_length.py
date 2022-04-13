@@ -18,4 +18,5 @@ for alter in alters:
             data_len = len(data)
             if data_len != 36500*50:
                 print(file,data_len)
+                import pdb;pdb.set_trace()
     
