@@ -76,6 +76,19 @@ def out_csv(i,idxs):
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
     print('Done!!!')
+    
+cases = [0,1,2,3,4,5,6,7,8]
+alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
+alters = ['aw00']
 
-idxs = [['aw00',0]]
-out_csv(0,idxs)
+idxs = []
+for alter in alters:
+    for case in cases:
+        idx = [alter,case]
+        idxs += [idx]
+
+num_idxs = len(idxs)
+num_cores = 8
+for i in np.arange(num_idxs) :
+    processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
+
