@@ -104,6 +104,7 @@ def out_csv(i,idxs):
     idx = idxs[i]
     alter = idx[0]
     case = idx[1]
+    print(alter,case)
     data_dir = f'../outputs/exports_case{case}_{alter}_30years_np/eco_data'
     files = os.listdir(data_dir)
     dump_dir = f'../outputs/AAPs_sum_{alter}_30years_np'
