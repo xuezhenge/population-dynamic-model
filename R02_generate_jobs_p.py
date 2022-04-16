@@ -24,7 +24,6 @@ def main(args):
         os.makedirs(jobs_dir)
 
     cases = [0,1,2,3,4,5,6,7,8]
-    cases = [1]
     # num_jobs
     num_cores = 24
     num_idxs = 1160
