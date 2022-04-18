@@ -56,7 +56,8 @@ def draw_multi_lines(years,x,pltt,folder,a,w,Tmin,Tmax,xlabel,ylabel):
     plt.ylabel(ylabel)
     fn = 'a{}_w{}_{}_{}.png'.format(a,w,Tmin,Tmax)
     out_file = os.path.join(folder, fn)
-    plt.savefig(out_file,bbox_inches='tight')
+    if not os.path.isfile(out_file):
+        plt.savefig(out_file,bbox_inches='tight')
     plt.close()
 
 def draw_multi_scatters(x,y,folder,a,w,Tmin,Tmax,xlabel,ylabel):
@@ -66,7 +67,8 @@ def draw_multi_scatters(x,y,folder,a,w,Tmin,Tmax,xlabel,ylabel):
     plt.title('AL : a = {} w = {} Tmin = {} Tmax = {}'.format(a,w,Tmin,Tmax))
     fn = 'a{}_w{}_{}_{}.png'.format(a,w,Tmin,Tmax)
     out_file = os.path.join(folder, fn)
-    plt.savefig(out_file,bbox_inches='tight')
+    if not os.path.isfile(out_file):
+        plt.savefig(out_file,bbox_inches='tight')
     plt.close()
 
 def writer_csv(rows, filename):
@@ -124,7 +126,6 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
     #output file name
     temp_fn = "a_{}_w_{}.csv".format(a,w)
     out_file = os.path.join(export_folder, temp_fn)
-    import pdb;pdb.set_trace()
     if os.path.exists(out_file):
         print('{} exits!!! Run again!!!'.format(temp_fn))
 
@@ -591,8 +592,8 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     df = df[df["Class"] == 'A0L0']
     a = np.array(df.a)
     w = np.array(df.w)
-    a_20 = a[i]
-    w_20 = w[i]
+    a_20 = int(a[i])
+    w_20 = int(w[i])
     a_80 = a_20 + a_change_
     w_80 = w_20 + w_change_
     import pdb;pdb.set_trace()
