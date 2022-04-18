@@ -587,14 +587,15 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     elif alter == 'aw-48':
         a_change_ = -4
         w_change_ = 8
-    a_80 = a_20 + a_change_
-    w_80 = w_20 + w_change_
+
     df = pd.read_csv(f'../outputs/sum_csv/AAPs_sum_{alter}_50years/AAPs_case{case}.csv')
     df = df[df["Class"] == 'A0L0']
     a = np.array(df.a)
     w = np.array(df.w)
     a_20 = a[i]
     w_20 = w[i]
+    a_80 = a_20 + a_change_
+    w_80 = w_20 + w_change_
     import pdb;pdb.set_trace()
     print(a_20,w_20)
     batch(a_80,w_80,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
