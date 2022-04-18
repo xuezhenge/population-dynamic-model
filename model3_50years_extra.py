@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--case", type=int, 
     default="0", help="1 or 2 or 3 or 4 or 5 or 6 or 7 or 8")
 parser.add_argument('--num_cores', type=int,
-    default=1)
+    default=24)
 parser.add_argument('--K', type=int,
     default=50000000,help = "Carrying capacity")
 parser.add_argument('--alter', type=str,
@@ -657,7 +657,7 @@ if __name__ == '__main__':
         TminL = 14
         TmaxL = 39
 
-    num_idxs = 430
+    num_idxs = 450
     for idx in np.arange(num_idxs) :
         #batch20_80(idx,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
         processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, TminA,TmaxA,TminL,TmaxL,export_fns_2080) for idx in range(num_idxs))
