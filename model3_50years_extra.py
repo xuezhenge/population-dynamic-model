@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--case", type=int, 
     default="0", help="1 or 2 or 3 or 4 or 5 or 6 or 7 or 8")
 parser.add_argument('--num_cores', type=int,
-    default=24)
+    default=1)
 parser.add_argument('--K', type=int,
     default=50000000,help = "Carrying capacity")
 parser.add_argument('--alter', type=str,
@@ -425,6 +425,8 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
                     A_end = Aden[i];L_end = Lden[i]
                 if num_change_A == 1 and num_change_L == 0:
                     A_end = Aden[i];L_end = 0
+                if A_end < 0.001: A_end = 0
+                if L_end < 0.001: L_end = 0
 
             if w-a >= Tov + 2:
                 if i == 1095000:
@@ -596,6 +598,7 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     w_20 = int(w[i])
     a_80 = a_20 + a_change_
     w_80 = w_20 + w_change_
+    import pdb;pdb.set_trace()
     print(a_20,w_20)
     batch(a_80,w_80,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
 
@@ -657,7 +660,7 @@ if __name__ == '__main__':
         TminL = 14
         TmaxL = 39
 
-    num_idxs = 450
+    num_idxs = 430
     for idx in np.arange(num_idxs) :
         #batch20_80(idx,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
         processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, TminA,TmaxA,TminL,TmaxL,export_fns_2080) for idx in range(num_idxs))
