@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--case", type=int, 
     default="0", help="1 or 2 or 3 or 4 or 5 or 6 or 7 or 8")
 parser.add_argument('--num_cores', type=int,
-    default=24)
+    default=1)
 parser.add_argument('--K', type=int,
     default=50000000,help = "Carrying capacity")
 parser.add_argument('--alter', type=str,
