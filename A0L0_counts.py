@@ -18,5 +18,5 @@ for case in cases:
     df = pd.read_csv(f'../outputs/sum_csv/AAPs_sum_{alter}_50years/AAPs_case{case}.csv')
     df = df[df["Class"] == 'A0L0']
     a = np.array(df.a)
-    len = len(a)
-    print(alter, case, a)
+    length = len(a)
+    print(alter, case, length)
