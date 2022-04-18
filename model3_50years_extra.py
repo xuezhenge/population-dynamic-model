@@ -589,15 +589,13 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
         w_change_ = 8
     a_80 = a_20 + a_change_
     w_80 = w_20 + w_change_
-    df = pd.read_csv(f'../outputs/summary_csv/AAPs_sum_{alter}_50years/AAPs_case{0}.csv')
+    df = pd.read_csv(f'../outputs/sum_csv/AAPs_sum_{alter}_50years/AAPs_case{case}.csv')
     df = df[df["Class"] == 'A0L0']
-    df = df[args.start_idx:args.end_idx]
     a = np.array(df.a)
     w = np.array(df.w)
     a_20 = a[i]
     w_20 = w[i]
-    # a_20 = 10
-    # w_20 = 17
+    import pdb;pdb.set_trace()
     print(a_20,w_20)
     batch(a_80,w_80,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
 
@@ -659,7 +657,7 @@ if __name__ == '__main__':
         TminL = 14
         TmaxL = 39
 
-    num_idxs = 1160
+    num_idxs = 430
     for idx in np.arange(num_idxs) :
         #batch20_80(idx,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
         processed_list = Parallel(n_jobs=num_cores)(delayed(batch20_80)(idx, TminA,TmaxA,TminL,TmaxL,export_fns_2080) for idx in range(num_idxs))
