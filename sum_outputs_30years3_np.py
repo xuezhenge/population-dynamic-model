@@ -79,7 +79,6 @@ def out_csv(i,idxs):
     
 cases = [0,1,2,3,4,5,6,7,8]
 alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
-alters = ['aw00']
 
 idxs = []
 for alter in alters:
@@ -88,7 +87,7 @@ for alter in alters:
         idxs += [idx]
 
 num_idxs = len(idxs)
-num_cores = 8
+num_cores = 24
 for i in np.arange(num_idxs) :
     processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
 
