@@ -156,9 +156,9 @@ def out_csv(i,idxs):
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
-cases = [0,1,2,3,4,5,6,7,8]
+cases = [5]
 alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
-alters = ['aw04','aw48']
+alters = ['aw-40']
 
 idxs = []
 for alter in alters:
