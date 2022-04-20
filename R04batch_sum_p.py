@@ -19,7 +19,7 @@ import glob
 # https://towardsdatascience.com/time-series-decomposition-in-python-8acac385a5b2
 
 
-num_cores = 24
+num_cores = 3
 
 def get_data(df,year):
     df = df.rename({'Unnamed: 0': 'dt'}, axis=1)
@@ -156,15 +156,15 @@ def out_csv(i,idxs):
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
 
-cases = [5]
+cases = [0,1,2,3,4,5,6,7,8]
 alters = ['aw00','aw04','aw08','aw-40','aw-44','aw-48','aw40','aw44','aw48']
-alters = ['aw-40']
 
 idxs = []
 for alter in alters:
     for case in cases:
         idx = [alter,case]
         idxs += [idx]
+idxs = [['aw-40',5],['aw48',3],['aw04',3]]
 
 num_idxs = len(idxs)
 #import pdb;pdb.set_trace()
