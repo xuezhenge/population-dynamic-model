@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--data_dir", type=str, 
     default="data_dump", help="Directory to the data folder!")
 parser.add_argument('--num_idxs_per_job', type=int,
-    default=400, help="f5")
+    default=600, help="f5")
 # parser.add_argument('--case', type=int,
 #     default=0, help="f5")
 parser.add_argument("--alter", type=str, 
