@@ -417,15 +417,21 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
             # End the simulation
             # end the simulation when one of them enter the overwintering period
             Tov = max(TminA, TminL) # overwintering threshold
-            if w-a >= Tov + 2:
-                A_end = Aden[i];L_end = Lden[i]
-            else:
+            if w-a < Tov + 2:
                 # import pdb;pdb.set_trace()
-                if Temp_t < Tov and num_change_A == 1 and num_change_L == 1:
+                if Temp_t < Tov and t_cur > 182.5:
                     A_end = Aden[i];L_end = Lden[i]
                     break
                 else:
                     A_end = Aden[i];L_end = Lden[i]
+                if num_change_A == 1 and num_change_L == 0:
+                    A_end = Aden[i];L_end = 0
+                if num_change_A == 0 and num_change_L == 0:
+                    A_end = 0;L_end = 0
+                if A_end < 0.001: A_end = 0
+                if L_end < 0.001: L_end = 0
+            elif w-a >= Tov + 2:
+                A_end = Aden[i];L_end = Lden[i]
 
             # if w-a < Tov + 2:
             #     if Temp_t < Tov and num_change_A == 1 and num_change_L == 1:
