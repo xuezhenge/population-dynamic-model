@@ -421,7 +421,7 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
                 A_end = Aden[i];L_end = Lden[i]
             else:
                 # import pdb;pdb.set_trace()
-                if Temp_t < Tov and num_change_A == 1:
+                if Temp_t < Tov and num_change_A == 1 and num_change_L == 1:
                     A_end = Aden[i];L_end = Lden[i]
                     break
                 else:
