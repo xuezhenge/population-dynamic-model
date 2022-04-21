@@ -23,7 +23,7 @@ def main(args):
     if not os.path.exists(jobs_dir):
         os.makedirs(jobs_dir)
 
-    cases = [7,8]
+    cases = [0,1,3,4,5,6]
     # num_jobs
     num_cores = 24
     num_idxs = 1160
