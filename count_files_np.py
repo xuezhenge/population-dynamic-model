@@ -12,6 +12,6 @@ for alter in alters:
         data_dir = f'../outputs/exports_case{case}_{alter}_30years_np/eco_data'
         files = os.listdir(data_dir)
         no_files = len(files)
-#         if no_files <1160:
-        print(f'{alter} -- case{case}: {no_files} files')
+        if no_files <1160:
+            print(f'{alter} -- case{case}: {no_files} files')
     
