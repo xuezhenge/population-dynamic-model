@@ -1,4 +1,3 @@
-
 import os
 from shutil import get_archive_formats
 from pandas import read_csv
@@ -89,7 +88,6 @@ for alter in alters:
         idxs += [idx]
 
 num_idxs = len(idxs)
-num_cores = 24
+num_cores = 1
 for i in np.arange(num_idxs) :
     processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
-
