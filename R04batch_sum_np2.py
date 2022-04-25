@@ -88,6 +88,6 @@ for alter in alters:
         idxs += [idx]
 
 num_idxs = len(idxs)
-num_cores = 1
+num_cores = 24
 for i in np.arange(num_idxs) :
     processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
