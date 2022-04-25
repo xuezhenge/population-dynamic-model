@@ -86,7 +86,6 @@ for alter in alters:
     for case in cases:
         idx = [alter,case]
         idxs += [idx]
-idxs = [['aw00',2]]
 
 num_idxs = len(idxs)
 num_cores = 1
