@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--data_dir", type=str, 
     default="data_dump", help="Directory to the data folder!")
 parser.add_argument('--num_idxs_per_job', type=int,
-    default=600, help="f5")
+    default=1200, help="f5")
 # parser.add_argument('--case', type=int,
 #     default=0, help="f5")
 parser.add_argument("--alter", type=str, 
@@ -24,6 +24,7 @@ def main(args):
         os.makedirs(jobs_dir)
 
     cases = [0,1,2,3,4,5,6,7,8]
+    cases = [0,4,5,6,8]
     # num_jobs
     num_cores = 24
     num_idxs = 1160
