@@ -43,6 +43,7 @@ def writer_csv(rows, filename, rowname = rowname, bool_continue=False):
 
 def out_csv(i,idxs):
     idx = idxs[i]
+    print(idx)
     alter = idx[0]
     case = idx[1]
     data_dir = f'../outputs/exports_case{case}_{alter}_30years_np/eco_data'
@@ -88,7 +89,7 @@ for alter in alters:
         idxs += [idx]
 
 num_idxs = len(idxs)
-num_cores = 1
+num_cores = 24
 for i in np.arange(num_idxs) :
     processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
 
