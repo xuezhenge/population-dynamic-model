@@ -558,7 +558,6 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     w = np.array(df.w)
     a_20 = a[i]
     w_20 = w[i]
-    print(a_20,w_20)
     if alter == 'aw00':
         a_change_ = 0
         w_change_ = 0
@@ -588,6 +587,9 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
         w_change_ = 8
     a_80 = a_20 + a_change_
     w_80 = w_20 + w_change_
+    a_80 = 32
+    w_80 = -1
+    print(a_80,w_80)
     batch(a_80,w_80,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
 
 def folders(year):
@@ -648,7 +650,7 @@ if __name__ == '__main__':
         TminL = 14
         TmaxL = 39
 
-    num_idxs = 1160
+    num_idxs = 1
     for idx in np.arange(num_idxs) :
         #batch20_80(idx,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
         #import pdb;pdb.set_trace()
