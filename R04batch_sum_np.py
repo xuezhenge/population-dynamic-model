@@ -62,20 +62,20 @@ def out_csv(i,idxs):
     files = os.listdir(data_dir)
     for file in tqdm.tqdm(files):
         import pdb;pdb.set_trace()
-            if file == '.DS_Store' or '.a_35_w_-2.csv.swp':
-                continue
-            loc = file.split(".csv")[0]
-            a_name,a,w_name,w = loc.split("_")
-            a = float(a)
-            w = float(w)
-            print(a,w)
-            file_dir = os.path.join(data_dir,file)
-            df = read_csv(file_dir, header=0)
-            data = get_data(df,year=30)
-            data_sum = get_sum(data)
-            row = [a] + [w] + data_sum
-            print(row)
-            rows += [row]
+        if file == '.DS_Store' or '.a_35_w_-2.csv.swp':
+            continue
+        loc = file.split(".csv")[0]
+        a_name,a,w_name,w = loc.split("_")
+        a = float(a)
+        w = float(w)
+        print(a,w)
+        file_dir = os.path.join(data_dir,file)
+        df = read_csv(file_dir, header=0)
+        data = get_data(df,year=30)
+        data_sum = get_sum(data)
+        row = [a] + [w] + data_sum
+        print(row)
+        rows += [row]
     #import pdb;pdb.set_trace()
     writer_csv(rows,filename = fn_AAP)
     print('Done!!!')
