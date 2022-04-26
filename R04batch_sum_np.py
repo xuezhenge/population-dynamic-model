@@ -88,7 +88,7 @@ for alter in alters:
     for case in cases:
         idx = [alter,case]
         idxs += [idx]
-idxs = [['aw48',6],['aw48',7],['aw48',8],['aw44',4],['aw48',1]]
+idxs = [['aw48',1],['aw44',4]]
 num_idxs = len(idxs)
 num_cores = 1
 for i in np.arange(num_idxs) :
