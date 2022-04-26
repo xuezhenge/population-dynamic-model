@@ -587,8 +587,8 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
         w_change_ = 8
     a_80 = a_20 + a_change_
     w_80 = w_20 + w_change_
-    a_80 = 32
-    w_80 = -1
+    a_80 = 35
+    w_80 = -2
     print(a_80,w_80)
     batch(a_80,w_80,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
 
