@@ -61,7 +61,6 @@ def out_csv(i,idxs):
     rows = []
     files = os.listdir(data_dir)
     for file in tqdm.tqdm(files):
-        import pdb;pdb.set_trace()
         if file == '.DS_Store':
             continue
         loc = file.split(".csv")[0]
