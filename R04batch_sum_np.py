@@ -87,8 +87,9 @@ for alter in alters:
     for case in cases:
         idx = [alter,case]
         idxs += [idx]
+idxs = [['aw44',4],['aw48',0],['aw48',1],['aw48',2],['aw48',3],['aw48',4],['aw48',5],['aw48',6],['aw48',7],['aw48',8]]
 num_idxs = len(idxs)
-num_cores = 24
+num_cores = 1
 for i in np.arange(num_idxs) :
     processed_list = Parallel(n_jobs=num_cores)(delayed(out_csv)(i,idxs) for i in range(num_idxs))
 
