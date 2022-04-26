@@ -62,7 +62,7 @@ def out_csv(i,idxs):
     files = os.listdir(data_dir)
     for file in tqdm.tqdm(files):
         import pdb;pdb.set_trace()
-        if file == '.DS_Store' or '.a_35_w_-2.csv.swp':
+        if file == '.DS_Store':
             continue
         loc = file.split(".csv")[0]
         a_name,a,w_name,w = loc.split("_")
