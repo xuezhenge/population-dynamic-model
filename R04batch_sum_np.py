@@ -67,6 +67,7 @@ def out_csv(i,idxs):
             a_name,a,w_name,w = loc.split("_")
             a = float(a)
             w = float(w)
+            print(a,w)
             file_dir = os.path.join(data_dir,file)
             df = read_csv(file_dir, header=0)
             data = get_data(df,year=30)
@@ -87,7 +88,7 @@ for alter in alters:
     for case in cases:
         idx = [alter,case]
         idxs += [idx]
-idxs = [['aw44',4],['aw48',0],['aw48',1],['aw48',2],['aw48',3],['aw48',4],['aw48',5],['aw48',6],['aw48',7],['aw48',8]]
+idxs = [['aw48',0],['aw48',1],['aw48',2],['aw48',3],['aw48',4],['aw48',5],['aw48',6],['aw48',7],['aw48',8],['aw44',4]]
 num_idxs = len(idxs)
 num_cores = 1
 for i in np.arange(num_idxs) :
