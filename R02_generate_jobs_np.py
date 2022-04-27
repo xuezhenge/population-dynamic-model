@@ -18,7 +18,7 @@ num_idxs_per_job = args.num_idxs_per_job
 alter = args.alter
 
 def main(args):
-    jobs_dir = f"jobs_{alter}"
+    jobs_dir = f"jobs_{alter}_np"
     jobs_dir = os.path.join(jobs_dir, "todo")
     if not os.path.exists(jobs_dir):
         os.makedirs(jobs_dir)
