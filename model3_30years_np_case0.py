@@ -585,6 +585,17 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     elif alter == 'aw-48':
         a_change_ = -4
         w_change_ = 8
+    elif alter == 'aw68':
+        a_change_ = 6
+        w_change_ = 8
+    elif alter == 'aw-68':
+        a_change_ = -6
+        w_change_ = 8
+    elif alter == 'aw_real':
+        a_change_mean = np.array(df.a_change_mean)
+        w_change_mean = np.array(df.w_change_mean)
+        a_change_ = a_change_mean[i]
+        w_change_ = w_change_mean[i]
     a_80 = a_20 + a_change_
     w_80 = w_20 + w_change_
     a_80 = 35
