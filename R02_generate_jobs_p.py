@@ -27,6 +27,7 @@ def main(args):
     cases = [0]
     # num_jobs
     num_cores = 24
+    num_idxs = 1160
     num_jobs = num_idxs // num_idxs_per_job + 1
     script_name = f"model3_50years.py"
 
