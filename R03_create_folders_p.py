@@ -15,7 +15,7 @@ case = args.case
 alter = args.alter
 
 def main(args):
-    fold_dir = f"../outputs/exports_case{case}_{alter}_30years_np"
+    fold_dir = f"../outputs/exports_case{case}_{alter}_50years"
     scenarios = ['eco']
     for scenario in scenarios:
         for folder_name in ["data", "plotAnp", "plotAp", "plotL", "plotAL"]:
