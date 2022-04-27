@@ -419,19 +419,24 @@ def batch(a,w,TminA,TmaxA, TminL,TmaxL,export_fns):
             Tov = max(TminA, TminL) # overwintering threshold
 
             if w-a < Tov + 2:
-                if Temp_t < Tov and num_change_A == 1 and num_change_L == 1:
+                # import pdb;pdb.set_trace()
+                if Temp_t < Tov and t_cur > 182.5:
                     A_end = Aden[i];L_end = Lden[i]
                     break
                 else:
                     A_end = Aden[i];L_end = Lden[i]
                 if num_change_A == 1 and num_change_L == 0:
+                    A_end = Aden[i];L_end = 0
+                if num_change_A == 0 and num_change_L == 0:
                     A_end = 0;L_end = 0
-            if w-a >= Tov + 2:
+                if A_end < 0.001: A_end = 0
+                if L_end < 0.001: L_end = 0
+            elif w-a >= Tov + 2:
                 if i == 1095000:
                     Aden[i] = Aden[i]*0.5;Aap[i] = Aap[i]*0.5; A1[i] = A1[i]*0.5; A2[i] = A2[i]*0.5; A3[i] = A3[i]*0.5; A4[i] = A4[i]*0.5
                     Lden[i] = Lden[i]*0.5;Legg[i] = Legg[i]*0.5; L1[i] = L1[i]*0.5; L2[i] = L2[i]*0.5; L3[i] = L3[i]*0.5; L4[i] = L4[i]*0.5; Lpupa[i] = Lpupa[i]*0.5;Lf[i]=Lf[i]*0.5;Lm[i]=Lm[i]*0.5
                 A_end = Aden[i];L_end = Lden[i]
-                
+
         outputs = [Aden, Lden, Aborn,Lborn,A_end,L_end]
         return outputs
 
@@ -596,6 +601,17 @@ def batch20_80(i,TminA,TmaxA,TminL,TmaxL,export_fns_2080):
     elif alter == 'aw-48':
         a_change_ = -4
         w_change_ = 8
+    elif alter == 'aw68':
+        a_change_ = 6
+        w_change_ = 8
+    elif alter == 'aw-68':
+        a_change_ = -6
+        w_change_ = 8
+    elif alter == 'aw_real':
+        a_change_mean = np.array(df.a_change_mean)
+        w_change_mean = np.array(df.w_change_mean)
+        a_change_ = a_change_mean[i]
+        w_change_ = w_change_mean[i]
     a_80 = a_20 + a_change_
     w_80 = w_20 + w_change_
     batch(a_80,w_80,TminA,TmaxA,TminL,TmaxL,export_fns_2080)
