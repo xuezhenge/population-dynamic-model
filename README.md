@@ -1,5 +1,5 @@
 # population-dynamic-model
-code for "Predator-prey interactions in a warming world: the critical role of cold tolerance"
+code for "Predator-prey interactions in a warming world: warmer and more seasonal climate decreases the effect of predation"
 
 # How to run the code for testing
 - Step 1: Dowload three files:
