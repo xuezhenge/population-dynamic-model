@@ -1,5 +1,5 @@
 # population-dynamic-model
-code for "Predator-prey interactions in a warming world: warmer and more seasonal climate decreases the effect of predation"
+code for "Warmer and more seasonal climates reduce the effect of top-down population control: An example with aphids and ladybirds"
 
 # How to run the code for testing
 - Step 1: Dowload three files:
